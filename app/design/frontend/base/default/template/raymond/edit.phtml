@@ -1,0 +1,46 @@
+<h2>Raymond "Custom Table" List</h2>
+<br />
+<h3><strong>Edit Product</strong></h3>
+<br />
+<?php
+$models = Mage::getModel('raymond/raymond')->getCollection();
+$varData = Mage::getModel('raymond/raymond')->load($_GET['id']);
+#d($varData->getData()); // it's just my custom function to check what's inside the $varData.
+?>
+
+<form  method="post" name="item_form"  id="item_form" action="<?php echo $this->getBaseUrl().'customtable/index/edit' ?>" enctype="multipart/form-data" >
+    <input type="hidden" name="id" value="<?php echo $varData->getraymond_custom_id(); ?>" required />
+
+    <label for="name"><?php echo $this->__('Product Name') ?><span class="required">*</span></label><br />
+    <input type="text" id="name" name="var_name" value="<?php echo $varData->getraymond_custom_name(); ?>" class="input-text required-entry" />
+    <br /><br />
+
+    <label for="color"><?php echo $this->__('Color') ?></label><br />
+    <input type="radio" id="color" name="var_color" value="blue" <?php echo ('blue' == $varData->getraymond_custom_color()) ? 'checked' : '';?> /> Blue
+    <input type="radio" id="color" name="var_color" value="green" <?php echo ('green' == $varData->getraymond_custom_color()) ? 'checked' : '';?> style="margin-left:20px;" /> Green
+    <input type="radio" id="color" name="var_color" value="black" <?php echo ('black' == $varData->getraymond_custom_color()) ? 'checked' : '';?> style="margin-left:20px;" /> Black
+    <input type="radio" id="color" name="var_color" value="red" <?php echo ('red' == $varData->getraymond_custom_color()) ? 'checked' : '';?> style="margin-left:20px;" /> Red
+    <input type="radio" id="color" name="var_color" value="brown" <?php echo ('brown' == $varData->getraymond_custom_color()) ? 'checked' : '';?> style="margin-left:20px;" /> Brown
+    <br /><br />
+
+    <label for="filename"><?php echo $this->__('Product Image') ?></label><br />
+    <?php echo '<img id=output src='.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'test/'.$varData->getraymond_custom_filename().' width="50px" height"50px" />';?>
+    <br />
+    <input type="file" accept="image/*" onchange="loadFile(event)" name="var_filename" /><br /><br />
+
+    Stock<br />
+    <select name="var_stock">
+        <option value='1' <?php echo (1 == $varData->getraymond_custom_stock()) ? 'selected' : ''; ?>>Available</option>
+        <option value='0' <?php echo (0 == $varData->getraymond_custom_stock()) ? 'selected' : ''; ?>>Out of stock</option>
+    </select><br /><br />
+
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+
+    <button class="button" type="submit" title="Update" name="submit">Update</button>
+    <a href="<?php echo $this->getBaseUrl().'raymond/customtable';?>" class="button" title="<?=$this->__('Cancel');?>">Cancel</a>
+</form>

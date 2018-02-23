@@ -1,0 +1,76 @@
+<h2>Raymond "Custom Table" List</h2>
+<p><a href="<?php echo $this->getBaseUrl().'raymond';?>" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('See my Sort Order module')) ?>"><?php echo $this->__('See my Sort Order module');?> ></a></p>
+<br />
+<h3><strong>Add New Product</strong></h3>
+<br />
+<form method="POST" action="<?php echo $this->getUrl('customtable/index/save'); ?>" enctype="multipart/form-data" style="border-bottom:1px solid #cccccc; margin-bottom:30px; padding-bottom:20px;">
+    <fieldset>
+        Product Name:<br />
+        <input type="text" name="var_name" minlength="3" placeholder="Enter product name" required />
+        <br /><br />
+
+        Color:<br />
+        <input type="radio" name="var_color" value="blue" checked /> Blue
+        <input type="radio" name="var_color" value="green" style="margin-left:20px;" /> Green
+        <input type="radio" name="var_color" value="black" style="margin-left:20px;" /> Black
+        <input type="radio" name="var_color" value="red" style="margin-left:20px;" /> Red
+        <input type="radio" name="var_color" value="brown" style="margin-left:20px;" /> Brown
+        <br /><br />
+
+        <label for="filename"><?php echo $this->__('Product Image') ?></label><br />
+        <input type="file" id="filename" name="var_filename" />
+        <br /><br />
+
+        Stock<br />
+        <select name="var_stock">
+            <option value="1">Available</option>
+            <option value="0">Out of stock</option>
+        </select>
+        <br /><br />
+
+        <input class="button" type="submit" value="Save">
+    </fieldset>
+</form>
+<?php
+$collection = Mage::getModel('raymond/raymond')->getCollection()->setOrder('raymond_custom_id', 'desc');
+$_customCollection=$this->getLoadedProductCollection();
+?>
+<h3>Task: "Products are shown, and print out the data from custom table"</h3>
+<p><strong>Here the list:</strong></p>
+<div id="table_id" style="margin-top:30px;">
+    <table width="100%" border="1px" style="text-align:center">
+        <tr>
+            <td>Product Name</td>
+            <td>Color</td>
+            <td>Stock</td>
+            <td>Product Image</td>
+            <td>Actions</td>
+        </tr>
+        <?php
+        foreach($collection as $collect): ?>
+        <tr>
+            <td>
+                <?php echo $collect->getraymond_custom_name(); ?>
+            </td>
+            <td>
+                <?php echo $collect->getraymond_custom_color(); ?>
+            </td>
+            <td>
+                <?php echo (1 == $collect->getraymond_custom_stock()) ? 'Available' : 'Out of stock'; ?>
+            </td>
+            <td align="center">
+                <img src='<?php echo Mage::getBaseUrl("media")."test/".$collect->getraymond_custom_filename(); ?>' height=50px width= 50px/>
+            </td>
+            <td>
+                <a href="<?php echo $this->getBaseUrl().'raymond/customtable/editData?id='.$collect->getraymond_custom_id() ?>">
+                    <?php echo $this->__('Edit'); ?>
+                </a>
+                <span style="padding:0 10px 0;">|</span>
+                <a href="<?php echo $this->getBaseUrl().'raymond/customtable/delData?id='.$collect->getraymond_custom_id() ?>">
+                    <?php echo $this->__('Delete'); ?>
+                </a>
+            </td>
+        </tr>
+        <?php endforeach;?>
+    </table>
+</div>

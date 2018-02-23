@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <raymond_index_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="raymond/raymond" name="raymond" template="raymond/raymond.phtml"/>
+        </reference>
+    </raymond_index_index>
+    <raymond_customtable_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="raymond/raymond" name="raymondcustom_customtable" template="raymond/customtable.phtml"/>
+        </reference>
+    </raymond_customtable_index>
+    <raymond_customtable_editdata>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="raymond/raymond" name="raymondcustom_customtable_edit" template="raymond/edit.phtml"/>
+        </reference>
+    </raymond_customtable_editdata>
+</layout>
